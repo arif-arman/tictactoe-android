@@ -42,4 +42,11 @@ public class ModeSelectActivity extends ActionBarActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void singlePlayerClicked(View view) {
+        Intent intent = new Intent(this, SinglePlayerActivity.class);
+        startActivity(intent);
+    }
+
+
 }
