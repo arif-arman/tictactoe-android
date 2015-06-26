@@ -3,29 +3,40 @@ package com.ugabuga.zitu.myapplication;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-/*
 
-Selects mode, single player or multi player
-
- */
-
-public class ModeSelectActivity extends ActionBarActivity {
+public class FirstMoveSelectActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mode_select);
+        setContentView(R.layout.activity_first_move_select);
     }
+
+    public void playerMovesClicked(View view) {
+        Intent intent = new Intent(this, SinglePlayerActivity.class);
+        intent.putExtra("firstMove", "player");
+        startActivity(intent);
+
+    }
+
+    public void androidMovesClicked(View view) {
+        Intent intent = new Intent(this, SinglePlayerActivity.class);
+        intent.putExtra("firstMove","android");
+        startActivity(intent);
+
+    }
+
+
 
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mode_select, menu);
+        getMenuInflater().inflate(R.menu.menu_first_move_select, menu);
         return true;
     }
 
@@ -43,16 +54,5 @@ public class ModeSelectActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-*/
-    public void multiPlayerClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void singlePlayerClicked(View view) {
-        Intent intent = new Intent(this, FirstMoveSelectActivity.class);
-        startActivity(intent);
-    }
-
-
+    */
 }

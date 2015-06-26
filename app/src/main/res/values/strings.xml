@@ -11,4 +11,8 @@
     <string name="single_player">Single Player</string>
     <string name="multi_player">Multi Player</string>
     <string name="title_activity_single_player">SinglePlayerActivity</string>
+    <string name="title_activity_first_move_select">FirstMoveSelectActivity</string>
+
+    <string name="player_moves">I Move First</string>
+    <string name="android_moves">Android Moves First</string>
 </resources>

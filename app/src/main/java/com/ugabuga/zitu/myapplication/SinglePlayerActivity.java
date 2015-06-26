@@ -1,5 +1,8 @@
 package com.ugabuga.zitu.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,12 +14,23 @@ import android.widget.Toast;
 import java.util.Random;
 
 
+/*
+
+Single Player codes
+
+ */
+
 public class SinglePlayerActivity extends ActionBarActivity {
 
     private Board board;
     private boolean isGameOver = false;
     private int turn = 1;
     private boolean firstMove = true;
+
+    private String player1symbol = "X";
+    private String player2symbol = "O";
+
+    private int player1, player2;
 
     static final int AI = 1;
     static final int USER = 2;
@@ -25,13 +39,27 @@ public class SinglePlayerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
+        Bundle extras = getIntent().getExtras();
+        String move = extras.getString("firstMove");
 
         board = new Board();
-        aiMove();
+        if(move.equals("android")) {
+            player1 = AI;
+            player2 = USER;
+            //Toast.makeText(getApplicationContext(), move, Toast.LENGTH_SHORT).show();
+            aiMove();
+        }
+        else {
+            player1 = USER;
+            player2 = AI;
+            turn = 0;
+            firstMove = false;
+        }
 
     }
 
     public void aiMove() {
+
         Point pai = null;
         if (!isGameOver && !firstMove) {
             pai = board.alphaBeta();
@@ -48,7 +76,8 @@ public class SinglePlayerActivity extends ActionBarActivity {
         board.updateBoard(pai, AI);
         turn = 1-turn;
         TextView cell = getAIMove(pai);
-        cell.setText("X");
+        if (player1 == AI) cell.setText(player1symbol);
+        else cell.setText(player2symbol);
         checkBoard();
     }
     public void resetClicked(View view) {
@@ -90,7 +119,8 @@ public class SinglePlayerActivity extends ActionBarActivity {
             if (turn == 0) {
                 if (board.updateBoard(p, USER)) {
                     turn = 1-turn;
-                    cell.setText("O");
+                    if (player1 == USER) cell.setText(player1symbol);
+                    else cell.setText(player2symbol);
                 }
             }
             checkBoard();
@@ -105,9 +135,39 @@ public class SinglePlayerActivity extends ActionBarActivity {
 
     public void checkBoard() {
         if (board.isGameOver()) {
-            if (board.XWon()) Toast.makeText(getApplicationContext(), "Android Wins", Toast.LENGTH_LONG).show();
-            else if (board.OWon()) Toast.makeText(getApplicationContext(), "Player Wins", Toast.LENGTH_LONG).show();
-            else Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setCancelable(false);
+            dlgAlert.setPositiveButton("Restart",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    }
+            );
+            dlgAlert.setNegativeButton("Quit",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(SinglePlayerActivity.this, ModeSelectActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+            );
+            if (board.XWon()) {
+                dlgAlert.setTitle("Android Wins");
+            }
+            //Toast.makeText(getApplicationContext(), "Android Wins", Toast.LENGTH_LONG).show();
+            else if (board.OWon()) {
+                dlgAlert.setTitle("You Win");
+            }
+            //Toast.makeText(getApplicationContext(), "Player Wins", Toast.LENGTH_LONG).show();
+            else dlgAlert.setTitle("Match Drawn");
+            //Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
+            dlgAlert.show();
             isGameOver = true;
             board.clearBoard();
         }

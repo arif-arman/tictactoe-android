@@ -1,5 +1,8 @@
 package com.ugabuga.zitu.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
+/*
+
+Multi player codes
+
+ */
 
 public class MainActivity extends ActionBarActivity {
 
@@ -70,14 +79,37 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
             if (board.isGameOver()) {
-                if (board.XWon()) Toast.makeText(getApplicationContext(), "Player 1 Wins", Toast.LENGTH_LONG).show();
-                else if (board.OWon()) Toast.makeText(getApplicationContext(), "Player 2 Wins", Toast.LENGTH_LONG).show();
-                else Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+                dlgAlert.setCancelable(false);
+                dlgAlert.setPositiveButton("Restart",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                            }
+                        }
+                );
+                dlgAlert.setNegativeButton("Quit",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MainActivity.this, ModeSelectActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        }
+                );
+                if (board.XWon()) dlgAlert.setTitle("Player 1 Wins");
+                    //Toast.makeText(getApplicationContext(), "Player 1 Wins", Toast.LENGTH_LONG).show();
+                else if (board.OWon()) dlgAlert.setTitle("Player 2 Wins");
+                // Toast.makeText(getApplicationContext(), "Player 2 Wins", Toast.LENGTH_LONG).show();
+                else dlgAlert.setTitle("Match Drawn");
+                //Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
+                dlgAlert.show();
                 isGameOver = true;
                 board.clearBoard();
-
-
-
             }
         }
 

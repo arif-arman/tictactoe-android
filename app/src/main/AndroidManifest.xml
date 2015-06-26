@@ -24,6 +24,10 @@
             android:name=".SinglePlayerActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".FirstMoveSelectActivity"
+            android:label="@string/title_activity_first_move_select" >
+        </activity>
     </application>
 
 </manifest>
