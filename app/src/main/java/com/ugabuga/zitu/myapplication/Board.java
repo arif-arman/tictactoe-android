@@ -23,6 +23,37 @@ public class Board {
         return 0;
     }
 
+    public ArrayList<Point> winningCombination() {
+        ArrayList<Point> win = new ArrayList<>();
+
+        if(blocks[0][0] == blocks[1][1] && blocks[1][1] == blocks[2][2] && (blocks[2][2] == 1 || blocks[2][2] == 2)) {
+            win.add(new Point(0,0));
+            win.add(new Point(1,1));
+            win.add(new Point(2,2));
+        }
+        else if (blocks[0][2] == blocks[1][1] && blocks[1][1] == blocks[2][0] && (blocks[2][0] == 1 || blocks[2][0] == 2)) {
+            win.add(new Point(0,2));
+            win.add(new Point(1,1));
+            win.add(new Point(2,0));
+        }
+        else {
+            for(int i=0;i<3;i++) {
+                if(blocks[i][0] == blocks[i][1] && blocks[i][1] == blocks[i][2] && (blocks[i][2] == 1 || blocks[i][2] == 2)) {
+                    win.add(new Point(i,0));
+                    win.add(new Point(i,1));
+                    win.add(new Point(i,2));
+                }
+                else if ((blocks[0][i] == blocks[1][i] && blocks[1][i] == blocks[2][i] && (blocks[2][i] == 1 || blocks[2][i] == 2))) {
+                    win.add(new Point(0,i));
+                    win.add(new Point(1,i));
+                    win.add(new Point(2,i));
+                }
+            }
+        }
+
+        return win;
+    }
+
     public boolean isGameOver() {
         return (XWon() || OWon() || boardFull());
     }

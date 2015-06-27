@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".SinglePlayerActivity"
-    android:background="#4169e1"
+    android:background="@drawable/main"
     >
 
     <LinearLayout

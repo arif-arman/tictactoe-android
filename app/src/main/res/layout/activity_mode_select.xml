@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.ugabuga.zitu.myapplication.ModeSelectActivity"
-    android:background="#4169e1"
+    android:background="@drawable/main"
     >
 
     <TableLayout
@@ -18,17 +18,36 @@
             android:layout_width="wrap_content"
             android:layout_weight="12"
             android:gravity="center"
-            >
-            <TextView
-                android:text="@string/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="50sp"
-                android:textColor="#FFFFFF"
-                android:typeface="serif"
 
-                />
+            >
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="30sp"
+                    android:textColor="#FFFFFF"
+                    android:typeface="serif"
+                    android:text="Unbeatable"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:text="@string/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="50sp"
+                    android:textColor="#FFFFFF"
+                    android:typeface="serif"
+
+                    />
+            </LinearLayout>
+
 
         </TableRow>
 
