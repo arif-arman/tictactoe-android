@@ -4,15 +4,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#4169e1"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/Heading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"
+            android:typeface="serif"
+            android:text="Multi Player"
+
+            />
+
+    </LinearLayout>
 
 
     <TableLayout
         android:id="@+id/Grid"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#4da64d"
+        android:layout_weight="3"
         >
 
         <TableRow
@@ -21,6 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+
             >
 
             <TextView
@@ -75,6 +100,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+
             >
 
             <TextView
@@ -130,6 +158,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+
             >
             <TextView
                 android:id="@+id/Cell31"
@@ -182,22 +213,46 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center"
         >
 
         <TextView
+            android:id="@+id/CurrentPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"
+            android:typeface="serif"
+
+            />
+
+        <Button
             android:id="@+id/Reset"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/buttonshape"
             android:text="@string/reset"
             android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:typeface="serif"
+
             android:gravity="center"
             android:onClick="resetClicked"
             android:clickable="true"
 
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             />
 
     </LinearLayout>

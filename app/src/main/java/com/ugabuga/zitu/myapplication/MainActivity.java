@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
+import org.w3c.dom.Text;
+
 /*
 
 Multi player codes
@@ -23,18 +25,21 @@ public class MainActivity extends ActionBarActivity {
     private Board board;
     private boolean isGameOver = false;
     private int turn = 0;
+    TextView v;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        v = (TextView) findViewById(R.id.CurrentPlayer);
+        v.setText("Player 1 Moves");
         board = new Board();
     }
 
     public void resetClicked(View view) {
         turn = 0;
+        v.setText("Player 1 Moves");
         isGameOver = false;
         board.clearBoard();
         this.clearGrid();
@@ -71,43 +76,22 @@ public class MainActivity extends ActionBarActivity {
                     turn = 1-turn;
                     cell.setText("X");
                 }
+                v.setText("Move : Player 1");
             }
             else {
                 if (board.updateBoard(p,2)) {
                     turn = 1-turn;
                     cell.setText("O");
                 }
+                v.setText("Move : Player 1");
             }
             if (board.isGameOver()) {
-                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-                dlgAlert.setCancelable(false);
-                dlgAlert.setPositiveButton("Restart",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = getIntent();
-                                finish();
-                                startActivity(intent);
-                            }
-                        }
-                );
-                dlgAlert.setNegativeButton("Quit",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(MainActivity.this, ModeSelectActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
-                        }
-                );
-                if (board.XWon()) dlgAlert.setTitle("Player 1 Wins");
+                if (board.XWon()) v.setText("Match Over : Player 1 Wins!!");
                     //Toast.makeText(getApplicationContext(), "Player 1 Wins", Toast.LENGTH_LONG).show();
-                else if (board.OWon()) dlgAlert.setTitle("Player 2 Wins");
+                else if (board.OWon()) v.setText("Match Over : Player 2 Wins");
                 // Toast.makeText(getApplicationContext(), "Player 2 Wins", Toast.LENGTH_LONG).show();
-                else dlgAlert.setTitle("Match Drawn");
+                else v.setText("Match Over : Drawn!!");
                 //Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
-                dlgAlert.show();
                 isGameOver = true;
                 board.clearBoard();
             }

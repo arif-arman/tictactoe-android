@@ -35,13 +35,15 @@ public class SinglePlayerActivity extends ActionBarActivity {
     static final int AI = 1;
     static final int USER = 2;
 
+    TextView v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
         Bundle extras = getIntent().getExtras();
         String move = extras.getString("firstMove");
-
+        v = (TextView) findViewById(R.id.CurrentPlayer);
         board = new Board();
         if(move.equals("android")) {
             player1 = AI;
@@ -50,6 +52,7 @@ public class SinglePlayerActivity extends ActionBarActivity {
             aiMove();
         }
         else {
+            v.setText("Your Move");
             player1 = USER;
             player2 = AI;
             turn = 0;
@@ -75,6 +78,7 @@ public class SinglePlayerActivity extends ActionBarActivity {
         }
         board.updateBoard(pai, AI);
         turn = 1-turn;
+        v.setText("Your Move");
         TextView cell = getAIMove(pai);
         if (player1 == AI) cell.setText(player1symbol);
         else cell.setText(player2symbol);
@@ -86,7 +90,12 @@ public class SinglePlayerActivity extends ActionBarActivity {
         board.clearBoard();
         this.clearGrid();
         firstMove = true;
-        aiMove();
+        if (player1 == USER) {
+            turn = 0;
+            firstMove = false;
+            v.setText("Your Move");
+        }
+        else aiMove();
     }
 
     public void cellClick(View view) {
@@ -135,39 +144,16 @@ public class SinglePlayerActivity extends ActionBarActivity {
 
     public void checkBoard() {
         if (board.isGameOver()) {
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setCancelable(false);
-            dlgAlert.setPositiveButton("Restart",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    }
-            );
-            dlgAlert.setNegativeButton("Quit",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(SinglePlayerActivity.this, ModeSelectActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }
-                    }
-            );
-            if (board.XWon()) {
-                dlgAlert.setTitle("Android Wins");
-            }
+            if (board.XWon())
+                v.setText("Match Over : Android Wins!!");
+
             //Toast.makeText(getApplicationContext(), "Android Wins", Toast.LENGTH_LONG).show();
             else if (board.OWon()) {
-                dlgAlert.setTitle("You Win");
+                v.setText("Match Over : You Win!!");
             }
             //Toast.makeText(getApplicationContext(), "Player Wins", Toast.LENGTH_LONG).show();
-            else dlgAlert.setTitle("Match Drawn");
+            else v.setText("Match Over : Drawn!!");
             //Toast.makeText(getApplicationContext(), "Match Drawn", Toast.LENGTH_LONG).show();
-            dlgAlert.show();
             isGameOver = true;
             board.clearBoard();
         }

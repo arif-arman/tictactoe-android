@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4da64d"
     android:orientation="vertical"
-    tools:context="com.ugabuga.zitu.myapplication.ModeSelectActivity">
+    tools:context="com.ugabuga.zitu.myapplication.ModeSelectActivity"
+    android:background="#4169e1"
+    >
 
     <TableLayout
         android:layout_width="match_parent"
@@ -15,14 +16,14 @@
         <TableRow
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_weight="9"
+            android:layout_weight="12"
             android:gravity="center"
             >
             <TextView
                 android:text="@string/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="50sp"
                 android:textColor="#FFFFFF"
                 android:typeface="serif"
@@ -53,7 +54,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:background="@drawable/buttonshape"
                     android:text="@string/single_player"
+                    android:textColor="#FFFFFF"
+
                     android:clickable="true"
                     android:onClick="singlePlayerClicked"
                     android:typeface="serif"
@@ -68,6 +72,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:background="@drawable/buttonshape"
+                    android:textColor="#FFFFFF"
                     android:text="@string/multi_player"
                     android:onClick="multiPlayerClicked"
                     android:typeface="serif"
@@ -81,7 +87,7 @@
             </LinearLayout>
         </TableRow>
         <TableRow
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="0dp"
             android:layout_width="match_parent"
             >
