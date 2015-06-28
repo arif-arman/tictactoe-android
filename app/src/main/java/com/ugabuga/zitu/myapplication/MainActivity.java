@@ -96,7 +96,8 @@ public class MainActivity extends ActionBarActivity {
                     for (int i=0;i<win.size();i++) {
                         Point mark = win.get(i);
                         TextView markCell = (TextView) findViewById(idList[mark.x][mark.y]);
-                        markCell.setTextColor(Color.parseColor("#ADE89B"));
+                        markCell.setBackgroundResource(R.drawable.win);
+                        //markCell.setTextColor(Color.parseColor("#ADE89B"));
 
                     }
                 }
@@ -107,7 +108,8 @@ public class MainActivity extends ActionBarActivity {
                     for (int i=0;i<win.size();i++) {
                         Point mark = win.get(i);
                         TextView markCell = (TextView) findViewById(idList[mark.x][mark.y]);
-                        markCell.setTextColor(Color.parseColor("#ADE89B"));
+                        markCell.setBackgroundResource(R.drawable.win);
+                        //markCell.setTextColor(Color.parseColor("#ADE89B"));
 
                     }
                 }
@@ -130,7 +132,8 @@ public class MainActivity extends ActionBarActivity {
             for (int j=0;j<3;j++) {
                 cell = (TextView) findViewById(idList[i][j]);
                 cell.setText("");
-                cell.setTextColor(Color.WHITE);
+                cell.setBackgroundResource(R.drawable.back);
+                //cell.setTextColor(Color.WHITE);
             }
 
         }
